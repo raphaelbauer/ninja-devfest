@@ -1,0 +1,43 @@
+<#import "../layout/defaultLayout.ftl.html" as layout> 
+<@layout.myLayout title>    
+
+<div class="content">
+	<#noescape>
+		${content}
+	</#noescape>
+</div>
+ 
+ 
+ <div class="navbar-fixed-bottom">
+	
+	<div class="container">
+	<hr/>
+	
+	<ul class="pager">
+  		<li class="previous"><a href="/page/${previousPage}" id="previous">&larr;</a></li>
+  		<li class="pager_middle">Raphael A. Bauer</li>
+  		<li class="next"><a href="/page/${nextPage}" id="next">&rarr;</a></li>
+	</ul>
+
+</div>
+</div>
+
+
+
+<script>
+$(document).keydown(function(e) {
+    e.stopPropagation(); // not sure if you will need this but it should stop horizontal scrolling
+    if(e.keyCode === 33) {
+        $('#previous').click();
+    } else if(e.keyCode === 34) {
+        $('#next').click();
+    }
+});
+
+$('#previous, #next').click(function(e) {
+    window.location.href = $(this).attr('href');
+});
+</script>
+
+
+</@layout.myLayout>

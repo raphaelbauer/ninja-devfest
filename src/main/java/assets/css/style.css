@@ -1,0 +1,27 @@
+footer {
+	color: gray;
+}
+
+a.navbar-brand {
+	font-size: 25px;
+}
+
+.pager_middle {
+	color: gray;
+}
+
+.img-center, .img-responsive {
+    margin: 0 auto;
+}
+
+.content {
+	padding-top: 50px;
+	min-height: 300px;
+	font-size: 25px;	
+}
+
+.content > ul > li {
+	padding-top: 5px;
+	padding-bottom: 5px;
+	
+}
