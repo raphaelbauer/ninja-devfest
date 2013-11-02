@@ -22,6 +22,7 @@ import ninja.AssetsController;
 import ninja.Router;
 import ninja.application.ApplicationRoutes;
 import ninja.utils.NinjaProperties;
+import controllers.ApiController;
 import controllers.ApplicationController;
 import controllers.PresentationController;
 
@@ -43,11 +44,11 @@ public class Routes implements ApplicationRoutes {
     public void init(Router router) {  
         
         // puts test data into db:
-        if (!ninjaProperties.isProd()) {
+        //if (!ninjaProperties.isProd()) {
             router.GET().route("/admin/setup_first").with(ApplicationController.class, "setupFirst");
             router.GET().route("/admin/setup_second").with(ApplicationController.class, "setupSecond");
             router.GET().route("/admin/clean").with(ApplicationController.class, "clean");
-        }
+        //}
         
         ///////////////////////////////////////////////////////////////////////
         // Login / Logout
@@ -68,12 +69,12 @@ public class Routes implements ApplicationRoutes {
         ///////////////////////////////////////////////////////////////////////
         // Api for management of software
         ///////////////////////////////////////////////////////////////////////
-        //router.GET().route("/api/page/{page}.json").with(ApiController.class, "getPageJson");
-        //router.GET().route("/api/page/{page}.xml").with(ApiController.class, "getPageXml");
+        router.GET().route("/api/page/{page}.json").with(ApiController.class, "getPageJson");
+        router.GET().route("/api/page/{page}.xml").with(ApiController.class, "getPageXml");
         
         //router.GET().route("/api/pages.json").with(ApiController.class, "getPagesJson");
         //router.GET().route("/api/pages.xml").with(ApiController.class, "getPagesXml");
-        //router.POST().route("/api/page.json").with(ApiController.class, "postPageJson");
+        router.PUT().route("/api/page/{page}.json").with(ApiController.class, "putPageJson");
         //router.POST().route("/api/page.xml").with(ApiController.class, "postPageXml");
  
         ///////////////////////////////////////////////////////////////////////
@@ -84,7 +85,7 @@ public class Routes implements ApplicationRoutes {
         ///////////////////////////////////////////////////////////////////////
         // Index / Catchall shows index page
         ///////////////////////////////////////////////////////////////////////
-        //router.GET().route("/.*").with(ApplicationController.class, "index");
+        router.GET().route("/.*").with(ApplicationController.class, "index");
     }
 
 }

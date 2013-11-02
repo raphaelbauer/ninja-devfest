@@ -11,17 +11,18 @@ public class PresentationPage {
     @Id
     public Long id;
     
-    public Long page;
-    
     public String title;
     
     public String content;
+    
+    public long page;
     
     public PresentationPage() {}
     
     public PresentationPage(String title, String content) {
     	this.title = title;
         this.content = content;
+
     }
  
 }

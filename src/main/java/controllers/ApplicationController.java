@@ -17,6 +17,9 @@
 package controllers;
 
 import com.google.inject.Inject;
+
+import models.PresentationPage;
+import models.PresentationPages;
 import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
@@ -25,6 +28,7 @@ import ninja.appengine.AppEngineFilter;
 import com.google.inject.Singleton;
 
 import conf.OfyService;
+import dao.PresentationPageDao;
 import dao.SetupDao;
 
 @Singleton
@@ -34,8 +38,20 @@ public class ApplicationController {
     @Inject
     SetupDao setupDao;
     
+    @Inject
+    PresentationPageDao presentationPageDao;
+    
     public ApplicationController() {
 
+    }
+    
+    public Result index() {
+    	
+    	PresentationPages presentationPages = presentationPageDao.getAllPresentationPages();
+    	
+    	long numberOfPages = presentationPages.presentationPages.size();
+    	
+    	return Results.html().render("numberOfPresentationPages", numberOfPages);
     }
     
     /**

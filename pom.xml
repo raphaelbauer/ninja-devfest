@@ -129,14 +129,14 @@
                 <artifactId>appengine-maven-plugin</artifactId>
                 <version>${appengine.version}</version>
                 <configuration>
-                    <appId>YOUR_APP_ID</appId>
-                    <version>YOUR_APP_VERSION</version>
+                    <appId>raplayground</appId>
+                    <version>devfest</version>
                     <jvmFlags>
                         <!-- see also: http://blog.cwill-dev.com/2011/11/22/grails-java-lang-outofmemoryerror-permgen-space/ -->
                         <jvmFlag>-Xms512m</jvmFlag>
                         <jvmFlag>-Xmx1024m</jvmFlag>
-                        <jvmFlag>-XX:PermSize=256m</jvmFlag>
-                        <jvmFlag>-XX:MaxPermSize=512m</jvmFlag>
+                        <jvmFlag>-XX:PermSize=1256m</jvmFlag>
+                        <jvmFlag>-XX:MaxPermSize=1512m</jvmFlag>
                         <jvmFlag>-XX:+UseParNewGC</jvmFlag>
                         <jvmFlag>-XX:MaxNewSize=256m</jvmFlag>
                         <jvmFlag>-XX:NewSize=256m</jvmFlag>

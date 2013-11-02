@@ -2,18 +2,17 @@ package dao;
 
 import java.util.List;
 
-import models.Article;
-import models.ArticleDto;
-import models.User;
-
-import com.googlecode.objectify.Objectify;
-
-import conf.OfyService;
 import models.PresentationPage;
 import models.PresentationPages;
 
-public class PresentationPageDao {
+import com.google.inject.Singleton;
+import com.googlecode.objectify.Key;
+import com.googlecode.objectify.Objectify;
 
+import conf.OfyService;
+
+@Singleton
+public class PresentationPageDao {
     
     public PresentationPages getAllPresentationPages() {
         
@@ -39,20 +38,39 @@ public class PresentationPageDao {
     }
     
     
-    public void putPresentationPage(PresentationPage presentationPage) {
+    public void putPresentationPage(final PresentationPage presentationPage) {
         
-        Objectify ofy = OfyService.ofy();
+    	final Objectify ofy = OfyService.ofy();
+    	
+                // first we have to get the number of presentationPages
+                List<Key<PresentationPage>> presentationPages 
+                        = ofy.load().type(PresentationPage.class).keys().list();
+                
+                // the next page gets saved with page++
+                presentationPage.page = presentationPages.size() + 1L;
+                
+                // now save the stuff
+                ofy.save().entity(presentationPage).now();
+
         
-        // first we have to get the number of presentationPages
-        List<PresentationPage> presentationPages 
-                = ofy.load().type(PresentationPage.class).order("page").list();
+    }
+    
+    
+    public void putPresentationPages(List<PresentationPage> presentationPages) {
         
-        // the next page gets saved with page++
-        presentationPage.page = presentationPages.size() + 1L;
+        final Objectify ofy = OfyService.ofy();
         
-        // now save the stuff
-        ofy.save().entity(presentationPage).now();
-        
+                // first we have to get the number of presentationPages
+                int presentationPagesCounter 
+                        = ofy.load().type(PresentationPage.class).keys().list().size();
+                
+                for (PresentationPage presentationPage : presentationPages) {
+
+                	presentationPage.page = presentationPagesCounter++;
+                	ofy.save().entity(presentationPage).now();
+                	
+                }
+
     }
 
 }

@@ -1,13 +1,11 @@
 package conf;
 
-import models.Article;
-import models.User;
+import models.PageCounter;
+import models.PresentationPage;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
-import java.util.List;
-import models.PresentationPage;
 
 /**
  * Best practise for Objectify to register your entities.
@@ -20,6 +18,7 @@ public class OfyService {
     static {
 
         ObjectifyService.register(PresentationPage.class);
+ 
 
     }
 

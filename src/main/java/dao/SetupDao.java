@@ -1,7 +1,9 @@
 package dao;
 
-import com.google.appengine.repackaged.com.google.common.collect.Lists;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import java.util.List;
 
 
@@ -10,6 +12,7 @@ import com.googlecode.objectify.Objectify;
 import static conf.OfyService.ofy;
 import models.PresentationPage;
 
+@Singleton
 public class SetupDao {
     
     @Inject
@@ -116,15 +119,76 @@ public class SetupDao {
         );
         allPagesToPut.add(presentationPageTheProblem2);
         
+        PresentationPage presentationPageDemoTime = new PresentationPage(
+        		"Demo Time",
+                "<h1 class='text-center'>Demo time!</h1>"
+        );
+        allPagesToPut.add(presentationPageDemoTime);
+        
         
         PresentationPage presentationPageTheProblemNinjaAndAppEngineMakesMeSmile = new PresentationPage(
         		"The problem",
-                "<img class='img-center img-responsive' src='/assets/ninja_appengine_that_makes_me_smile'>"
+                "<img class='img-center img-responsive' src='/assets/img/ninja_appengine_that_makes_me_smile.jpg'>"
         );
         
         allPagesToPut.add(presentationPageTheProblemNinjaAndAppEngineMakesMeSmile);
         
         
+        
+        PresentationPage presentationPageTwoMoreThings1= new PresentationPage(
+        		"One more thing #1",
+                "<ul>" +
+                "<li>mvn archetype to start full featured Ninja appengine project</li>" +
+                "<li>http://www.ninjaframework.org</li>" + 
+                "<li>https://github.com/ninjaframework/ninja-appengine</li>" +
+                "<li>https://github.com/raphaelbauer/ninja-devfest</li>" +
+                "</ul>" 
+        );
+        allPagesToPut.add(presentationPageTwoMoreThings1);
+        
+        PresentationPage presentationPageTwoMoreThings2= new PresentationPage(
+        		"One more thing #2",
+                "<ul>" +
+                "<li>Ninja is NOT restricted to the App Engine</li>" +
+                "<li>Runs on servlet containers / applications servers</li>" +
+                "<li>Runs as self executing fat jar</li>" +
+                "<li>Works with Google Cloud SQL, Heroku...</li>" + 
+                
+                "</ul>"
+        		
+        );
+        allPagesToPut.add(presentationPageTwoMoreThings2);
+        
+        
+        PresentationPage presentationPageTwoMoreThings3 = new PresentationPage(
+        		"One more thing #3",
+                		"<p class='text-center'>stateless scaleable architecture, client side sessions, " +
+                        "authorization, authentication, caching support, validation support and error reporting, " +
+                        "form parsing, objectify persistence, guice-persist based jpa, database migrations, " +
+                        "configuration management for test, dev, excellent i18n support, extendability via modules, " +
+                        "static assets service, startup actions, filters, webjars support etag support, friendly community, " +
+                        "objectify’s excellent api, doctests, mocked tests</p>"
+        );
+        allPagesToPut.add(presentationPageTwoMoreThings3);
+        
+        
+        
+        
+        PresentationPage presentationPageThanks = new PresentationPage(
+        		"Thanks!*",
+                "<ul>" +
+                "<li>Thanks for your attention!</li>" +
+                "<li>Thanks for all contributors to Ninja!</li>" +
+                "<li>Thanks to the organizers of the DevFest and Google :)</li>" +
+                "<li>http://www.ninjaframework.org</li>" +
+                "</ul>" + 
+                "<h5 class='pager_middle'>*ps idea stolen from Martin Görner</h5>"
+        );
+        allPagesToPut.add(presentationPageThanks);
+        
+        
+	
+        	
         
         putAllPages(allPagesToPut);
     }
@@ -141,12 +205,8 @@ public class SetupDao {
     }
     
     private void putAllPages(List<PresentationPage> allPagesToPut) {
-    	
-    	
-    	for(PresentationPage presentationPage : allPagesToPut) {
-    		presentationPageDao.putPresentationPage(presentationPage);
-    	}
-    	
+
+    		presentationPageDao.putPresentationPages(allPagesToPut);
     	
     }
 

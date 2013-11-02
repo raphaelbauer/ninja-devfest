@@ -2,29 +2,12 @@
 <@layout.myLayout "Home page">    
 
 
-        
-<#if frontArticle??>
+<div class="container">
 
-    <div class="jumbotron">
-        <h1>
-            <a href="/article/${frontArticle.id}">${frontArticle.title}</a>    
-        </h1>  
-        <p>${frontArticle.postedAt?date}</p>  
-        <p><#noescape>${frontArticle.content}</#noescape></p>
-    </div>
-</#if>
+<h1 class="text-center">A really funky index page!</h1>
 
-<hr/>
+<h1 class="text-center">We got ${numberOfPresentationPages} pages... stay tuned for second part...</h1>
 
-<#if olderArticles??>
-    
-    <#list olderArticles as article>
-        <h3>
-            <a href="/article/${article.id}">${article.title}</a>    
-        </h3>  
-        <p>${article.postedAt?date}</p>  
-    </#list>
-    
-</#if>
+</div>
 
 </@layout.myLayout>
