@@ -26,8 +26,6 @@
 //import org.mockito.Mock;
 //import org.mockito.runners.MockitoJUnitRunner;
 //
-//import dao.ArticleDao;
-//
 //@RunWith(MockitoJUnitRunner.class)
 //public class ApiControllerMockTest {
 //

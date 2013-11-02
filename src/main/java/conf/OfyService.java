@@ -1,6 +1,5 @@
 package conf;
 
-import models.PageCounter;
 import models.PresentationPage;
 
 import com.googlecode.objectify.Objectify;

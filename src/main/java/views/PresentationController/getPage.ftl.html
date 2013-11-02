@@ -1,9 +1,9 @@
 <#import "../layout/defaultLayout.ftl.html" as layout> 
-<@layout.myLayout title>    
+<@layout.myLayout presentationPage.title>    
 
 <div class="content">
 	<#noescape>
-		${content}
+		${presentationPage.content}
 	</#noescape>
 </div>
  

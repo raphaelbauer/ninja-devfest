@@ -72,7 +72,7 @@ public class Routes implements ApplicationRoutes {
         router.GET().route("/api/page/{page}.json").with(ApiController.class, "getPageJson");
         router.GET().route("/api/page/{page}.xml").with(ApiController.class, "getPageXml");
         
-        //router.GET().route("/api/pages.json").with(ApiController.class, "getPagesJson");
+        router.GET().route("/api/pages.json").with(ApiController.class, "getPagesJson");
         //router.GET().route("/api/pages.xml").with(ApiController.class, "getPagesXml");
         router.PUT().route("/api/page/{page}.json").with(ApiController.class, "putPageJson");
         //router.POST().route("/api/page.xml").with(ApiController.class, "postPageXml");

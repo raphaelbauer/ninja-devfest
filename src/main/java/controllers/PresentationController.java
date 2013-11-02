@@ -22,6 +22,7 @@ import ninja.Result;
 import ninja.Results;
 import ninja.appengine.AppEngineFilter;
 import ninja.params.PathParam;
+import ninja.validation.JSR303Validation;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -47,12 +48,27 @@ public class PresentationController {
 
     	return Results
             .html()
-            .render("title", presentationPage.title)
-            .render("content", presentationPage.content)
+            .render(presentationPage)
             .render("previousPage", page - 1)
             .render("nextPage", page + 1);
         
 
     }
+    
+    
+//    public Result postPage(@JSR303Validation PresentationPage presentationPage) {
+//
+//        PresentationPage presentationPage  
+//                = presentationPageDao.getPresentationPage(page);
+//        
+//
+//    	return Results
+//            .html()
+//            .render(presentationPage)
+//            .render("previousPage", page - 1)
+//            .render("nextPage", page + 1);
+//        
+//
+//    }
 
 }

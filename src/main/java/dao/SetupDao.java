@@ -35,6 +35,18 @@ public class SetupDao {
         
         allPagesToPut.add(presentationPageFrontPage);
         
+        
+        PresentationPage presentationMe = new PresentationPage(
+        		"Overview",
+                "<ul>" +
+                "<li>Freelance IT Consultant</li>" +
+                "<li>Work for many companies, Big data, JEE, AppEngine, Gwt, Angular, QE, dev productivity.</li>" +
+                "<li>Involved in startups: backupgoo.com, sciplanet.com</li>" +
+                "<li>Open source committer: ninjaframework.org and doctester.org</li>" +
+                "</ul>" 
+        );
+        allPagesToPut.add(presentationMe);
+        
         PresentationPage presentationPageOverview = new PresentationPage(
         		"Overview",
                 "<ul>" +
@@ -73,11 +85,11 @@ public class SetupDao {
                 "<ul>" +
                 "<li>No simple setup and build</li>" +
                 "<li>No automated hot reload</li>" +
+                "<li>No IoC support</li>" +
                 "<li>No nice restful routes, Html, Json, Xml</li>" +
                 "<li>No integrated Html, Json, Xml support</li>" +
                 "<li>No authorization / authentication</li>" +
                 "<li>No simple and fast testing</li>" +
-                "<li>No IoC support</li>" +
                 "<li>...</li>" +
                 "</ul>" 
         );
@@ -98,7 +110,6 @@ public class SetupDao {
     public void setupSecond() {
     	
     	List<PresentationPage> allPagesToPut = Lists.newArrayList();
-    	
     	
     	
         PresentationPage presentationPageTheProblemPicardSolution = new PresentationPage(
@@ -151,9 +162,8 @@ public class SetupDao {
                 "<ul>" +
                 "<li>Ninja is NOT restricted to the App Engine</li>" +
                 "<li>Runs on servlet containers / applications servers</li>" +
-                "<li>Runs as self executing fat jar</li>" +
-                "<li>Works with Google Cloud SQL, Heroku...</li>" + 
-                
+                "<li>Runs as self executing fat jar (!)</li>" +
+                "<li>Works with Google Compute Engine (Sebastian's talk this morning), Cloud SQL, Heroku...</li>" + 
                 "</ul>"
         		
         );
@@ -167,11 +177,22 @@ public class SetupDao {
                         "form parsing, objectify persistence, guice-persist based jpa, database migrations, " +
                         "configuration management for test, dev, excellent i18n support, extendability via modules, " +
                         "static assets service, startup actions, filters, webjars support etag support, friendly community, " +
-                        "objectify’s excellent api, doctests, mocked tests</p>"
+                        "objectify, doctests, mocked tests</p>"
         );
         allPagesToPut.add(presentationPageTwoMoreThings3);
         
+        PresentationPage presentationConclusion = new PresentationPage(
+        		"Conclusion",
+                "<ul>" +
+                "<li>What is the App Engine...</li>" +
+                "<li>Why will you need Ninja?</li>" +
+                "<li>Anatomy of a Ninja application</li>" +
+                "<li>Not only for App Engine...</li>" +
+                "<li>There is a lot more more...</li>" +
+                "</ul>" 
+        );
         
+        allPagesToPut.add(presentationConclusion);
         
         
         PresentationPage presentationPageThanks = new PresentationPage(
@@ -180,14 +201,16 @@ public class SetupDao {
                 "<li>Thanks for your attention!</li>" +
                 "<li>Thanks for all contributors to Ninja!</li>" +
                 "<li>Thanks to the organizers of the DevFest and Google :)</li>" +
+                "<li>Thanks to the sponsors Immobilienscout24 and Paypal :)</li>" +
                 "<li>http://www.ninjaframework.org</li>" +
                 "</ul>" + 
-                "<h5 class='pager_middle'>*ps idea stolen from Martin Görner</h5>"
+                "<h5 class='pager_middle'>*ps idea stolen from Martin Goerner</h5>"
         );
         allPagesToPut.add(presentationPageThanks);
         
         
 	
+
         	
         
         putAllPages(allPagesToPut);

@@ -16,18 +16,15 @@
 
 package controllers;
 
-import com.google.inject.Inject;
-
-import models.PresentationPage;
 import models.PresentationPages;
 import ninja.FilterWith;
 import ninja.Result;
 import ninja.Results;
 import ninja.appengine.AppEngineFilter;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
-import conf.OfyService;
 import dao.PresentationPageDao;
 import dao.SetupDao;
 

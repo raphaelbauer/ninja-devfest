@@ -17,8 +17,6 @@
 package controllers;
 
 
-import java.util.List;
-
 import models.PresentationPage;
 import models.PresentationPages;
 import ninja.FilterWith;
@@ -26,13 +24,14 @@ import ninja.Result;
 import ninja.Results;
 import ninja.appengine.AppEngineFilter;
 import ninja.params.PathParam;
+import ninja.validation.JSR303Validation;
+import ninja.validation.Validation;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.googlecode.objectify.Objectify;
 
 import conf.OfyService;
-
 import dao.PresentationPageDao;
 
 @Singleton
@@ -51,14 +50,33 @@ public class ApiController {
 		
 	}
 	
-	public Result putPageJson(@PathParam("page") Long page, PresentationPage presentationPage) {
+	public Result getPagesJson() {
 		
-		Objectify ofy = OfyService.ofy();
+		PresentationPages presentationPages = presentationPageDao.getAllPresentationPages();
 		
-		ofy.save().entity(presentationPage).now();
+		return Results.json().render(presentationPages);
 		
-		return Results.json().render(presentationPage);
 		
+	}
+	
+	public Result putPageJson(
+			@PathParam("page") Long page, 
+			@JSR303Validation PresentationPage presentationPage,
+			Validation validation) {
+		
+		if (validation.hasViolations()) {
+			
+			return Results.badRequest().render(new String("Error."));
+			
+		} else {
+			
+			Objectify ofy = OfyService.ofy();
+			
+			ofy.save().entity(presentationPage).now();
+			
+			return Results.json().render(presentationPage);
+			
+		}
 		
 	}
 	

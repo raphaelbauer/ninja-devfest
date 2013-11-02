@@ -16,99 +16,76 @@
 
 package controllers;
 
+import models.PresentationPage;
+import models.PresentationPages;
 import ninja.NinjaApiDocTest;
+
+import org.junit.Test;
+
+import de.devbliss.apitester.ApiResponse;
 
 public class ApiControllerDocTest extends NinjaApiDocTest {
     
-//    String GET_ARTICLES_URL = "/api/{username}/articles.json";
-//    String POST_ARTICLE_URL = "/api/{username}/article.json";
-//    String LOGIN_URL = "/login";
-//    
-//    String USER = "bob@gmail.com";
-//
-//    @Test
-//    public void testGetAndPostArticleViaJson() throws Exception {
-//
-//        // /////////////////////////////////////////////////////////////////////
-//        // Test initial data:
-//        // /////////////////////////////////////////////////////////////////////
-//        
-//        sayNextSection("Retrieving articles for a user (Json)");
-//        
-//        say("Retrieving all articles of a user is a GET request to " + GET_ARTICLES_URL);
-//        
-//        ApiResponse apiResponse = makeGetRequest(buildUri(GET_ARTICLES_URL.replace("{username}", "bob@gmail.com")));
-//
-//        ArticlesDto articlesDto = getGsonWithLongToDateParsing().fromJson(apiResponse.payload, ArticlesDto.class);
-//
-//        assertEqualsAndSay(3, articlesDto.articles.size(), "We get back all 3 articles of that user");
-//
-//        // /////////////////////////////////////////////////////////////////////
-//        // Post new article:
-//        // /////////////////////////////////////////////////////////////////////
-//        sayNextSection("Posting new article (Json)");
-//        
-//        say("Posting a new article is a post request to " + POST_ARTICLE_URL);
-//        say("Please note that you have to be authenticated in order to be allowed to post.");
-//        
-//        ArticleDto articleDto = new ArticleDto();
-//        articleDto.content = "contentcontent";
-//        articleDto.title = "new title new title";
-//
-//        apiResponse = makePostRequest(buildUri(POST_ARTICLE_URL.replace("{username}", USER)), articleDto);
-//        assertEqualsAndSay(403, apiResponse.httpStatus, "You have to be authenticated in order to post articles");
-//        
-//        doLogin();
-//
-//        say("Now we are authenticated and expect the post to succeed...");
-//        apiResponse = makePostRequest(buildUri(POST_ARTICLE_URL.replace("{username}", USER)), articleDto);
-//        assertEqualsAndSay(200, apiResponse.httpStatus, "After successful login we are able to post articles");
-//
-//        // /////////////////////////////////////////////////////////////////////
-//        // Fetch articles again => assert we got a new one ...
-//        // /////////////////////////////////////////////////////////////////////
-//        
-//        say("If we now fetch the articles again we are getting a new article (the one we have posted successfully");
-//        apiResponse = makeGetRequest(buildUri(GET_ARTICLES_URL.replace("{username}", "bob@gmail.com")));
-//
-//        articlesDto = getGsonWithLongToDateParsing().fromJson(apiResponse.payload, ArticlesDto.class);
-//        // one new result:
-//        assertEqualsAndSay(4, articlesDto.articles.size(), "We are now getting 4 articles.");
-//
-//    }
-//
-//
-//
-//    private Gson getGsonWithLongToDateParsing() {
-//        // Creates the json object which will manage the information received
-//        GsonBuilder builder = new GsonBuilder();
-//        // Register an adapter to manage the date types as long values
-//        builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
-//            public Date deserialize(JsonElement json,
-//                                    Type typeOfT,
-//                                    JsonDeserializationContext context)
-//                    throws JsonParseException {
-//                return new Date(json.getAsJsonPrimitive().getAsLong());
-//            }
-//        });
-//        Gson gson = builder.create();
-//
-//        return gson;
-//    }
-//
-//    private void doLogin() throws Exception {
-//
-//        say("To authenticate we send our credentials to " + LOGIN_URL);
-//        say("We are then issued a cookie from the server that authenticates us in further requests");
-//
-//        Map<String, String> formParameters = Maps.newHashMap();
-//        formParameters.put("username", "bob@gmail.com");
-//        formParameters.put("password", "secret");
-//        
-//        makePostRequest(buildUri(LOGIN_URL, formParameters));
-//
-//    }
-//
+	
+	String GET_SETUP_PAGES = "/admin/setup_first";
+	
+	String GET_PAGES_URL = "/api/pages.json";
+	 
+    String GET_PAGE_URL = "/api/page/{page}.json";
+    String PUT_PAGE_URL = "/api/page/{page}.json";
+
+    @Test
+    public void testJsonApi() throws Exception {
+    	
+    	makeGetRequestSilent(buildUri(GET_SETUP_PAGES));
+
+        
+        sayNextSection("Retrieving all presentation pages (Json)");
+        
+        say("Retrieving all presentation pages is a GET request to " + GET_PAGES_URL);
+        
+        ApiResponse apiResponse = makeGetRequest(
+        		buildUri(
+        				GET_PAGES_URL.replace("{page}", "1")));
+
+        PresentationPages presentationPages = apiResponse.payloadJsonAs(PresentationPages.class);
+
+        assertEqualsAndSay(
+        		7, presentationPages.presentationPages.size(), "We got back 7 pages - as expected");
+        
+        // page 1
+        say("Retrieving all presentation pages is a GET request to " + GET_PAGES_URL);
+        apiResponse = makeGetRequest(
+        		buildUri(
+        				GET_PAGE_URL.replace("{page}", "0")));
+
+        PresentationPage presentationPage = apiResponse.payloadJsonAs(PresentationPage.class);
+
+        assertEqualsAndSay("Ninja", presentationPage.title, "Contains correct title");
+        
+        
+        // testing pushing
+        apiResponse = makePutRequest(
+        		buildUri(
+        				PUT_PAGE_URL.replace("{page}", "0")), presentationPage);
+        
+        assertEqualsAndSay(presentationPage.title, presentationPage.title, "We get back stuff...");
+
+
+        
+        say("The title must at least have one character, otherwise putting does not work.");
+        presentationPage.title = "";
+        
+        apiResponse = makePutRequest(
+        		buildUri(
+        				PUT_PAGE_URL.replace("{page}", "0")), presentationPage);
+        assertEqualsAndSay(400, apiResponse.httpStatus, "Violation of the model results in a status code 400");
+        
+        
+
+    }
+
+
     @Override
     protected String getFileName() {
         return this.getClass().getSimpleName();
